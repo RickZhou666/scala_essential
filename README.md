@@ -145,3 +145,32 @@ Exception in thread "main" java.lang.StackOverflowError
 ```
 
 4. use `@tailrec` to check whether current function is tail recursion
+
+
+<br><br><br>
+
+# 1.6 call-by-name and call-by-value
+
+1. call by value
+    - value is computed before call
+    - same value used everywhere
+
+2. call by name
+    - exprssion is passed literally
+    - expression is evaluated at every use within
+
+```scala
+  private def infinite(): Int = 1 + infinite()
+
+  private def printFirst(x: Int, y: => Int) = println(x)
+
+  // stack over flow
+  // printFirst(infinite(), 34) 
+
+  // this is successful without crashing
+  // second parameter is evaluate by name,
+  // so infinite() wont get evaluate until pass into printFirst()
+  // and its body only invoke println(x)
+  // so infinite() will never get evaluated
+  printFirst(34, infinite())
+```
