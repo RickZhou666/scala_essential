@@ -149,7 +149,7 @@ Exception in thread "main" java.lang.StackOverflowError
 
 <br><br><br>
 
-# 1.6 call-by-name and call-by-value
+## 1.6 call-by-name and call-by-value
 
 1. call by value
     - value is computed before call
@@ -173,4 +173,27 @@ Exception in thread "main" java.lang.StackOverflowError
   // and its body only invoke println(x)
   // so infinite() will never get evaluated
   printFirst(34, infinite())
+```
+
+<br><br><br>
+
+## 1.7 default and named arguments
+
+1. when 99% of time we call a function with the same params
+```scala
+def factorial(x: Int, acc: Int = 1): Int= {
+    ...
+}
+val fact10 = factorial(10)
+```
+
+
+2. naming parameters
+```scala
+def greet(name: String = "Superman", age: Int = 10): String =
+  s"Hi, I'm $name and I'm $age years old."
+
+greet(age = 5)
+greet(name = "Sally", age = 5)
+greet(age = 2, name = "dog")
 ```
