@@ -123,6 +123,7 @@ val x = {
 ## 1.5 Stack & Tail Recursion
 1. all stack frames JVM need to compute factorial
     - ![imgs](./imgs/Xnip2024-06-12_22-47-23.jpg)
+    
 
 
 2. `StackOverflowError` if too many stack frame
@@ -197,3 +198,25 @@ greet(age = 5)
 greet(name = "Sally", age = 5)
 greet(age = 2, name = "dog")
 ```
+
+<br><br><br>
+
+## 1.8 Smart operations on Strings
+
+1. String interpolates: F
+    - for formatted strings, similar to printf
+```scala
+val speed = 1.2f
+val name = "Daniel"
+println(f"$name can eat $speed%2.2f burgers per minute")
+```
+- ![imgs](./imgs/Xnip2024-06-13_07-28-37.jpg)
+
+<br><br>
+
+- can check for type correctness
+```scala
+val x = 1.1f
+val str = f"$x%3d"
+```
+- ![imgs](./imgs/Xnip2024-06-13_07-28-52.jpg)
