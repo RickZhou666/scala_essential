@@ -23,6 +23,7 @@
         - Boolean
         - Int, Long, Double
 - ![imgs](./imgs/Xnip2024-06-09_18-21-29.jpg)
+
 ```scala
 package com.rick.scala
 package lectures.part1basics
@@ -92,3 +93,25 @@ val x = {
     - Expression: give me the value of something, are evaluated(Scala)
 
 5. `DO NOT USE while loops in your scala code`
+
+<br><br><br>
+
+## 1.3 Functions
+
+1. function definition
+```scala
+    def function_name(parameter_name: parameter_type): return_type = {
+        // function body
+    }
+
+```
+
+## 1.4 Type Inference
+1. what compiler know I
+    - ![imgs](./imgs/Xnip2024-06-12_22-36-32.jpg)
+    
+2. what compiler know II
+    - ![imgs](./imgs/Xnip2024-06-12_22-36-59.jpg)
+
+3. need to specify return type
+    - ![imgs](./imgs/Xnip2024-06-12_22-38-41.jpg)
