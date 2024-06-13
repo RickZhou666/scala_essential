@@ -106,12 +106,42 @@ val x = {
 
 ```
 
+<br><br><br>
+
 ## 1.4 Type Inference
 1. what compiler know I
     - ![imgs](./imgs/Xnip2024-06-12_22-36-32.jpg)
-    
+
 2. what compiler know II
     - ![imgs](./imgs/Xnip2024-06-12_22-36-59.jpg)
 
 3. need to specify return type
     - ![imgs](./imgs/Xnip2024-06-12_22-38-41.jpg)
+
+<br><br><br>
+
+## 1.5 Stack & Tail Recursion
+1. all stack frames JVM need to compute factorial
+    - ![imgs](./imgs/Xnip2024-06-12_22-47-23.jpg)
+
+
+2. `StackOverflowError` if too many stack frame
+```bash
+Exception in thread "main" java.lang.StackOverflowError
+	at java.base/java.nio.ByteBuffer.position(ByteBuffer.java:263)
+```
+
+3. scala use current stack frame to compute factorial `TAIL RECURSION`
+```scala
+  def anotherFactorial(n: BigInt): BigInt = {
+    @tailrec // use this annotation
+    def factHelper(x: BigInt, accumulator: BigInt): BigInt = {
+      if (x <= 1) accumulator
+      else factHelper(x - 1, x * accumulator) // allows scala to use current stack frame instead of creating a new one
+                                              // TAIL RECURSION = use recursive call as the LAST expression
+    }
+    factHelper(n, 1)
+  }
+```
+
+4. use `@tailrec` to check whether current function is tail recursion
