@@ -220,3 +220,36 @@ val x = 1.1f
 val str = f"$x%3d"
 ```
 - ![imgs](./imgs/Xnip2024-06-13_07-28-52.jpg)
+
+<br><br><br><br><br><br>
+
+# 2. Object-Oriented Programming in Scala
+
+## 2.1 Object-Oriented Basics
+1. defining class
+```scala
+class Person(name: String, age: Int)
+```
+
+2. instantiating
+```scala
+val bob = new Person("Bob", 22)
+```
+
+3. parameters vs fields
+```scala
+class Person(val name: String, age: Int)
+```
+
+4. defining methods
+```scala
+def greet(): String = {...}
+```
+
+5. calling methods
+    - syntax allowed for parameter-less methods
+```scala
+val bobSaysHi = bob.greet
+```
+
+6. the keyword `this`
