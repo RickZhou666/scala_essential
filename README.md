@@ -397,4 +397,23 @@ class Supercar extends Car
 class Garage[T <: Car](car: T)
 ```
 
-6. an anooying variance problem
+6. an annoying variance problem
+
+<br><br><br>
+
+## 2.6 Anonmyous Classes
+1. we can instantiate types and override fields or methods on the spot
+```scala
+trait Animal {
+    def eat: Unit
+}
+val predator = new Animal {
+    override def eat: Unit = println("RAWR!")
+}
+```
+
+2. Rules
+    - pass in required constructor arguments if needed
+    - implement all abstract fields/ methods
+
+3. works for traits and classes (abstract or not)
