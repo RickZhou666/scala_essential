@@ -24,6 +24,7 @@
         - Int, Long, Double
 - ![imgs](./imgs/Xnip2024-06-09_18-21-29.jpg)
 
+
 ```scala
 package com.rick.scala
 package lectures.part1basics
@@ -296,6 +297,8 @@ mary.apply("Hi there!")
 mary("Hi there!")
 ```
 
+<br><br><br>
+
 ## 2.3 Scala Objects
 - Objects in Scala are dedicated concepts
 - class level functionality, functionalities do not depend on instance of a class
@@ -326,3 +329,30 @@ def main(args: Array[String]): Unit
 
 object MyApp extends App
 ```
+
+<br><br><br>
+
+## 2.4 Inheritance, Abstract classes and Traits
+1. Scala's Type Hierachy
+    - ![imgs](./imgs/Xnip2024-06-15_22-59-17.jpg)
+
+2. Scala offers class-based inheritance
+    - access modifier: `private`, `protected`, default(none=public)
+    - need to pass in constructor arguments to parent class
+
+```scala
+class Animal
+class Cat extends Animal
+```
+
+3. Derived classes can `override` members or methods
+
+4. reuse parent fileds/ methods with `super`
+
+5. Prevent inheritance with `final` and `sealed`
+
+6. abstract classes
+
+7. `traits`
+
+8. inheriting from a class and multiple traits
