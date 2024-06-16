@@ -253,3 +253,45 @@ val bobSaysHi = bob.greet
 ```
 
 6. the keyword `this`
+
+<br><br><br>
+
+## 2.2 Syntactic Sugar: Method Notations
+```scala
+class Person(name: String) {
+    def likes(movie: String): Boolean = {...}
+    def unary_!(): String = {...}
+    def isAlive(): Boolean = {...}
+    def apply(greeting: String): String = {...}
+}
+```
+
+1. infix notation
+    - for methods with one parameter
+```scala
+    mary.likes("Inception")
+    mary    likes   "Inception"
+// object   method  parameter
+```
+
+
+2. prefix notation
+    - only allowed `+ - ~ !`
+```scala
+mary.unary_!()
+!mary
+```
+
+3. postfix notation
+    - for methods with no parameters
+```scala
+mary.isAlive
+mary isAlive
+```
+
+
+4. `apply()` is special
+```scala
+mary.apply("Hi there!")
+mary("Hi there!")
+```
