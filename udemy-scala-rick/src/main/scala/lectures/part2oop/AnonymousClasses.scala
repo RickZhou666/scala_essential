@@ -55,21 +55,21 @@ object AnonymousClasses extends App {
         [1,2,3].flatMap(n => [n, n + 1]) => [1, 2, 2, 3, 3, 4]
    */
 
-  trait MyPredicate[-T] {
-    def test(a: T): Boolean
-  }
-
-  trait MyTransformer[-A, B]
-
-  class MyList[T, A, B] extends MyPredicate[T] with MyTransformer[A, B] {
-
-    override def test(a: T): Boolean = ???
-
-    def map(transformer: MyTransformer[A, B]): MyList[T, A, B] = ???
-
-    def filter(predicate: MyPredicate[T]): MyList[T, A, B] = ???
-
-    def flatMap(transformer: MyTransformer[A, B]): MyList[B] = ???
-  }
+  // trait MyPredicate[-T] {
+  //   def test(a: T): Boolean
+  // }
+  //
+  // trait MyTransformer[-A, B]
+  //
+  // class MyList[T, A, B] extends MyPredicate[T] with MyTransformer[A, B] {
+  //
+  //   override def test(a: T): Boolean = ???
+  //
+  //   def map(transformer: MyTransformer[A, B]): MyList[T, A, B] = ???
+  //
+  //   def filter(predicate: MyPredicate[T]): MyList[T, A, B] = ???
+  //
+  //   def flatMap(transformer: MyTransformer[A, B]): MyList[B] = ???
+  // }
 
 }

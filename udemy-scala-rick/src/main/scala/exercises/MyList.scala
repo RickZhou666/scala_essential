@@ -26,6 +26,17 @@ abstract class MyList[+A] { // covariant +A, invariant A, contravariant -A
 
   // polymorphic call
   override def toString: String = "[" + printElements + "]"
+
+  // OO exercise: deciding function signature
+  def map[B](transformer: MyTransformer[A, B]): MyList[B]
+
+  def flatMap[B](transformer: MyTransformer[A, MyList[B]]): MyList[B]
+
+  def filter(predicate: MyPredicate[A]): MyList[A]
+
+  // Concatenation
+  // B super-type of A, return type is B
+  def ++[B >: A](list: MyList[B]): MyList[B]
 }
 
 // Empty list should be anything
@@ -42,7 +53,15 @@ object Empty extends MyList[Nothing] {
 
   override def printElements: String = ""
 
+  // OO exercise: deciding function signature
+  override def map[B](transformer: MyTransformer[Nothing, B]): MyList[B] = Empty
 
+  override def flatMap[B](transformer: MyTransformer[Nothing, MyList[B]]): MyList[B] = Empty
+
+  override def filter(predicate: MyPredicate[Nothing]): MyList[Nothing] = Empty
+
+
+  override def ++[B >: Nothing](list: MyList[B]): MyList[B] = list // just return that list
 }
 
 class Cons[+A](h: A, t: MyList[A]) extends MyList[A] {
@@ -57,6 +76,62 @@ class Cons[+A](h: A, t: MyList[A]) extends MyList[A] {
   override def printElements: String =
     if (t.isEmpty) "" + h
     else h + " " + t.printElements // this only works in Scala 2. Scala 3 use a String Interpolator
+
+  /**
+   * [1, 2, 3].filter(n % 2 == 0) =
+   *  <br>= [2, 3].filter(n % 2 == 0) =
+   *  <br>= new Cons(2, [3].filter(n % 2 == 0) )
+   *  <br>= new Cons(2, Empty.filter(n % 2 == 0) )
+   *  <br>= new Cons(2, Empty)
+   *
+   * @param predicate
+   * @return
+   */
+  override def filter(predicate: MyPredicate[A]): MyList[A] =
+    if (predicate.test(h)) new Cons(h, t.filter(predicate)) // if h passed it will be included in result, and test tail
+    else t.filter(predicate) // otherwise test tail
+
+  /**
+   * `[1, 2, 3].map(n * 2)`
+   * <br>`= new Cons(2, [2, 3].map(n * 2) )`
+   * <br>`= new Cons(2, new Cons(4, [3].map(n * 2) ) )`
+   * <br>`= new Cons(2, new Cons(4, new Cons(6, Empty.map(n * 2) ) ) )`
+   * <br>`= new Cons(2, new Cons(4, new Cons(6, Empty) ) ) `
+   *
+   * @param transformer
+   * @tparam B
+   * @return
+   */
+  override def map[B](transformer: MyTransformer[A, B]): MyList[B] =
+    new Cons(transformer.transform(h), t.map(transformer))
+
+  /*
+      [1, 2] ++ [3, 4, 5]
+      = new Cons(1, [2] ++ [3, 4, 5])
+      = new Cons(1, new Cons(2, Empty ++ [3, 4, 5]))
+      = new Cons(1, new Cons(2, [3, 4, 5]))
+      = new Cons(1, new Cons(2, new Cons(3, new Cons(4, new Cons(5) ) ) ) )
+   */
+  override def ++[B >: A](list: MyList[B]): MyList[B] = new Cons(h, t ++ list)
+
+
+  /*
+    [1, 2].flatMap(n => [n, n + 1])
+    = [1, 2] ++ [2].flatMap(n => [n, n + 1])
+    = [1, 2] ++ [2, 3] ++ Empty.flatMap(n => [n, n + 1])
+    = [1, 2] ++ [2, 3] ++ Empty
+    = [1, 2, 2, 3]
+   */
+  override def flatMap[B](transformer: MyTransformer[A, MyList[B]]): MyList[B] =
+    transformer.transform(h) ++ t.flatMap(transformer)
+}
+
+trait MyPredicate[-T] {
+  def test(elem: T): Boolean
+}
+
+trait MyTransformer[-A, B] {
+  def transform(elem: A): B
 }
 
 object ListTest extends App {
@@ -75,9 +150,36 @@ object ListTest extends App {
   // println(list.toString)
 
 
+  println("================== test list trait, abstract classes, invariant, covariant, contravariant ==================")
   val listOfIntegers: MyList[Int] = new Cons(1, new Cons(2, new Cons(3, Empty)))
   val listOfStrings: MyList[String] = new Cons("Hello", new Cons("Scala", new Cons("Rick", Empty)))
   println(listOfIntegers.toString)
   println(listOfStrings.toString)
+
+  println("\n================== test map ==================")
+  val transformer = new MyTransformer[Int, Int]{
+    override def transform(elem: Int): Int = elem * 2
+  }
+  val mapListOfIntegers =  listOfIntegers.map(transformer)
+  println(mapListOfIntegers.toString)
+
+
+
+  println("\n================== test filter ==================")
+  val predicate = new MyPredicate[Int] {
+    override def test(elem: Int): Boolean = elem % 2 == 0
+  }
+  val filterListOfIntegers =  listOfIntegers.filter(predicate)
+  println(filterListOfIntegers)
+
+
+  println("\n================== test flatMap ==================")
+  val anotherListOfIntegers: MyList[Int] = new Cons(1, new Cons(4, new Cons(5, Empty)))
+  println(listOfIntegers ++ anotherListOfIntegers)
+  val flatMapTransformer = new MyTransformer[Int, MyList[Int]] {
+    override def transform(elem: Int): MyList[Int] = new Cons(elem, new Cons(elem + 1, Empty))
+  }
+  println(listOfIntegers.flatMap(flatMapTransformer))
+
 
 }

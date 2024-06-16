@@ -417,3 +417,11 @@ val predator = new Animal {
     - implement all abstract fields/ methods
 
 3. works for traits and classes (abstract or not)
+
+<br><br><br>
+
+## 2.7 OO Exercise
+
+- if we dont put [-A] in the trait, the compiler will complain
+    - ![imgs](./imgs/Xnip2024-06-16_15-51-20.jpg)
+    - ![imgs](./imgs/Xnip2024-06-16_15-50-26.jpg)
