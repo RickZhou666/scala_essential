@@ -295,3 +295,34 @@ mary isAlive
 mary.apply("Hi there!")
 mary("Hi there!")
 ```
+
+## 2.3 Scala Objects
+- Objects in Scala are dedicated concepts
+- class level functionality, functionalities do not depend on instance of a class
+
+- Scala doesn't have "static" values/ methods
+1. Scala objects:
+    - are in their own class
+    - are the only instance
+    - singleton pattern in one line
+```scala
+object Person {
+    val N_EYES = 2
+    def canFly: Boolean = false
+}
+```
+
+2. Scala companions:
+    - can access each other's private members
+    - Scala is more OO than Java!
+```scala
+class Person
+object Person
+```
+
+3. Scala applications
+```scala
+def main(args: Array[String]): Unit
+
+object MyApp extends App
+```
