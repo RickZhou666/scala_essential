@@ -356,3 +356,45 @@ class Cat extends Animal
 7. `traits`
 
 8. inheriting from a class and multiple traits
+
+
+<br><br><br>
+
+## 2.5 Generics
+
+1. use the same code on many(potentially unrelated) types
+```scala
+trait List[T] {
+    def add(element: T)
+}
+```
+
+2. generic method
+```scala
+object List {
+    def single[A](element: A): List[A] = ???
+}
+```
+
+3. multiple type parameters
+```scala
+trait Map[Key, Value] {
+    ...
+}
+```
+
+
+4. variance: if B extends A, should List[B] extend List[A]?
+    - yes (covariant)               `trait List[+A]`
+    - no (invariant) - default      `trait List[A]`
+    - hell no! (contravariant)      `trait List[-A]`
+
+
+5. Bounded types
+```scala
+class Car
+class Supercar extends Car
+class Garage[T <: Car](car: T)
+```
+
+6. an anooying variance problem
