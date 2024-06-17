@@ -425,6 +425,7 @@ val predator = new Animal {
 - if we dont put [-A] in the trait, the compiler will complain
     - ![imgs](./imgs/Xnip2024-06-16_15-51-20.jpg)
     - ![imgs](./imgs/Xnip2024-06-16_15-50-26.jpg)
+    
 
 <br><br><br>
 
@@ -505,4 +506,38 @@ object Enums {
   }
 }
 
+```
+
+<br><br><br>
+
+## 2.9 Exceptions
+1. a weird value is nothing, which meaning can hold a value
+    - ![imgs](./imgs/Xnip2024-06-16_17-51-37.jpg)
+
+2. try...catch...finally
+    - if try catch return differnt type
+        - ![imgs](./imgs/Xnip2024-06-16_18-05-51.jpg)
+    - if try catch return same type
+        - ![imgs](./imgs/Xnip2024-06-16_18-08-14.jpg)
+
+3. Exceptions crash your program
+
+4. how to throw exceptions
+    - throwing returns nothing
+
+5. how to catch exceptions
+
+6. define custom exceptions
+```scala
+val someValue = throw new RuntimeException
+
+try {
+  // compute a value
+} catch {
+  case e: RuntimeException => /* another value */
+} finally {
+  // block for side effects
+}
+
+class MyKnife extends Exception
 ```
