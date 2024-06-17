@@ -448,3 +448,61 @@ val bob = Person("Bob", 26)
 
 bob.name
 ```
+
+
+<br><br><br>
+
+## 2.8 Scala 3: Enums
+
+1. Enums is a data type you can define as class
+```scala
+object Enums {
+
+  enum Permissions {
+    case READ, WRITE, EXECUTE, NONE
+
+    // add fields/ methods
+    def openDocument(): Unit =
+      if (this == READ) println("opening document...")
+      else println("reading not allowed.")
+  }
+
+  val somPermissions: Permissions = Permissions.READ
+
+  // constructor args
+  // define constant inside Enum
+  enum PermissionsWithBits(bits: Int) {
+    case READ extends PermissionsWithBits(4) // 100
+    case WRITE extends PermissionsWithBits(2) // 010
+    case EXECUTE extends PermissionsWithBits(1) // 001
+    case NONE extends PermissionsWithBits(0) // 000
+  }
+
+  object PermissionsWithBits {
+    def fromBit(bits: Int): PermissionsWithBits = // whatever
+      PermissionsWithBits.NONE
+  }
+
+  // standard API
+  // defined by the order
+  val somePermissionsOrdinal = somPermissions.ordinal
+  val allPermissions = PermissionsWithBits.values // array of all possible values of the enum
+  val readPermission: Permissions = Permissions.valueOf("READ")
+  /*
+    In Java
+    enum Thing {
+      A(2),
+      B(3)
+    }
+   */
+
+  // type 'main' it will be auto generated
+  def main(args: Array[String]): Unit = {
+    somPermissions.openDocument()
+    println(somePermissionsOrdinal)
+    println(allPermissions.toList)
+    println(readPermission.toString)
+  }
+}
+
+```

@@ -74,8 +74,9 @@ case class Cons[+A](h: A, t: MyList[A]) extends MyList[A] {
   override def add[B >: A](element: B): MyList[B] = new Cons(element, this)
 
   override def printElements: String =
-    if (t.isEmpty) "" + h
-    else h + " " + t.printElements // this only works in Scala 2. Scala 3 use a String Interpolator
+    if (t.isEmpty()) "" + h
+    // else h + " " + t.printElements // this only works in Scala 2. Scala 3 use a String Interpolator
+    else s"$h + ${t.printElements}" // this only works in Scala 2. Scala 3 use a String Interpolator
 
   /**
    * [1, 2, 3].filter(n % 2 == 0) =

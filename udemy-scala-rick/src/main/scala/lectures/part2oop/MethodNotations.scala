@@ -61,7 +61,7 @@ object MethodNotations extends App {
   // postfix notation
   // only works with variable without parameters
   println(mary.isAlive) // dot notation
-  println(mary isAlive)
+  // println(mary isAlive) // this only works for Scala 2
 
   println("\n =============== apply ===============")
   // apply
@@ -95,7 +95,7 @@ object MethodNotations extends App {
 
   println("\n =============== Quiz #3 ===============")
   println(mary learns "Scala")
-  println(mary learnsScala)
+  // println(mary learnsScala) // this only works for Scala 2
 
   println("\n =============== Quiz #4 ===============")
   println(mary apply(2))
