@@ -519,6 +519,7 @@ object Enums {
         - ![imgs](./imgs/Xnip2024-06-16_18-05-51.jpg)
     - if try catch return same type
         - ![imgs](./imgs/Xnip2024-06-16_18-08-14.jpg)
+        
 
 3. Exceptions crash your program
 
@@ -540,4 +541,46 @@ try {
 }
 
 class MyKnife extends Exception
+```
+
+<br><br><br>
+
+## 2.10 Packaging and Imports
+1. package object `only 1 per package`
+    - ![imgs](./imgs/Xnip2024-06-16_19-26-30.jpg)
+
+2. this make the package object method, fields visible to entire package
+    - ![imgs](./imgs/Xnip2024-06-16_19-29-18.jpg)
+
+3. imports
+    - `_` for all 
+        - ![imgs](./imgs/Xnip2024-06-16_19-32-24.jpg)
+    - use `alias` for imports
+        - ![imgs](./imgs/Xnip2024-06-16_19-33-50.jpg)
+
+4. package = a group of definitions under the same name
+
+5. to use a definition
+    - be in the same package
+    - or import the package
+
+6. Best practice - mirror the file structure
+
+7. fully qualified name
+
+8. `package objects` hold standalone methods/ constants
+    - one per packge
+
+9. Name aliasing at imports
+```scala
+// Person.scala
+package com.rick.scala.oop
+
+class Person
+object Person
+
+
+import java.sql.{Date => SqlDate}
+import java.util.{Date => JavaDate}
+import java.{util => ju}
 ```
