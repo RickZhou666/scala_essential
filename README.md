@@ -584,3 +584,28 @@ import java.sql.{Date => SqlDate}
 import java.util.{Date => JavaDate}
 import java.{util => ju}
 ```
+
+<br><br><br><br><br><br>
+
+# 3. Functional Programming in Scala
+
+## 3.1 What's a Function, Really?
+1. we want to work with functions
+    - pass functions as parameters
+    - use functions as values
+
+2. Problem: Scala works on top of the JVM
+    - designed for JAVA
+    - first-class elements: objects (instances of classes)
+
+3. Solution: All Scala functions are objects!
+    - function traits, up to 22 params
+    - syntactic sugar function types
+```scala
+trait Function1[-A, +B] {
+    def apply(element: A): B
+}
+
+Function2[Int, String, Int]
+(Int, String) => Int
+```
