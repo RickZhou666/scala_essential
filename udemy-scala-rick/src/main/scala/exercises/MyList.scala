@@ -40,7 +40,7 @@ abstract class MyList[+A] { // covariant +A, invariant A, contravariant -A
 }
 
 // Empty list should be anything
-object Empty extends MyList[Nothing] {
+case object Empty extends MyList[Nothing] {
 
   override def head: Nothing = throw new NoSuchElementException // expression return nothing, throw NotImplemented error
 
@@ -64,7 +64,7 @@ object Empty extends MyList[Nothing] {
   override def ++[B >: Nothing](list: MyList[B]): MyList[B] = list // just return that list
 }
 
-class Cons[+A](h: A, t: MyList[A]) extends MyList[A] {
+case class Cons[+A](h: A, t: MyList[A]) extends MyList[A] {
   override def head: A = h
 
   override def tail: MyList[A] = t
@@ -181,5 +181,8 @@ object ListTest extends App {
   }
   println(listOfIntegers.flatMap(flatMapTransformer))
 
-
+  println("\n================== test case classes & objects ==================")
+  val cloneListOfIntegers: MyList[Int] = new Cons(1, new Cons(2, new Cons(3, Empty)))
+  println(s"compare clone of list integers ${listOfIntegers == cloneListOfIntegers}")
+  // if you don't use 'case' then you need define a recursive comparison method
 }

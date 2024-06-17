@@ -425,3 +425,26 @@ val predator = new Animal {
 - if we dont put [-A] in the trait, the compiler will complain
     - ![imgs](./imgs/Xnip2024-06-16_15-51-20.jpg)
     - ![imgs](./imgs/Xnip2024-06-16_15-50-26.jpg)
+
+<br><br><br>
+
+## 2.8 Case Classes
+1. quick lightweight data structures with little boilerplate
+
+2. companions already implemented
+
+3. sensible equals, hashCode, toString
+
+4. auto-promoted parameters to fields
+
+5. Cloning
+
+6. `case objects`
+
+```scala
+case class Person(name: String, age: Int)
+
+val bob = Person("Bob", 26)
+
+bob.name
+```
