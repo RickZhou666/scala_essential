@@ -165,29 +165,34 @@ object ListTest extends App {
   println(listOfStrings.toString)
 
   println("\n================== test map ==================")
-  val transformer = new Function1[Int, Int]{
-    override def apply(elem: Int): Int = elem * 2
-  }
-  val mapListOfIntegers =  listOfIntegers.map(transformer)
-  println(mapListOfIntegers.toString)
+  // val transformer = new Function1[Int, Int]{
+  //   override def apply(elem: Int): Int = elem * 2
+  // }
+  // val transformer: Int => Int = (elem: Int) => elem + 2
+  // val mapListOfIntegers =  listOfIntegers.map(transformer)
+  // val mapListOfIntegers =  listOfIntegers.map(transformer)
+  println(listOfIntegers.map(elem => elem * 2).toString)
 
 
 
   println("\n================== test filter ==================")
-  val predicate = new Function1[Int, Boolean] {
-    override def apply(elem: Int): Boolean = elem % 2 == 0
-  }
-  val filterListOfIntegers =  listOfIntegers.filter(predicate)
-  println(filterListOfIntegers)
+  // val predicate = new Function1[Int, Boolean] {
+  //   override def apply(elem: Int): Boolean = elem % 2 == 0
+  // }
+  // val predicate: Int => Boolean = (elem: Int) =>  elem % 2 == 0
+  // val filterListOfIntegers =  listOfIntegers.filter(predicate)
+  println(listOfIntegers.filter(elem => elem % 2 == 0))
 
 
   println("\n================== test flatMap ==================")
   val anotherListOfIntegers: MyList[Int] = new Cons(1, new Cons(4, new Cons(5, Empty)))
   println(listOfIntegers ++ anotherListOfIntegers)
-  val flatMapTransformer = new Function1[Int, MyList[Int]] {
-    override def apply(elem: Int): MyList[Int] = new Cons(elem, new Cons(elem + 1, Empty))
-  }
-  println(listOfIntegers.flatMap(flatMapTransformer))
+  // val flatMapTransformer = new Function1[Int, MyList[Int]] {
+  //   override def apply(elem: Int): MyList[Int] = new Cons(elem, new Cons(elem + 1, Empty))
+  // }
+  // val flatMapTransformer: Int => MyList[Int] = (elem: Int) => new Cons(elem, new Cons(elem + 1, Empty))
+  // println(listOfIntegers.flatMap(flatMapTransformer))
+  println(listOfIntegers.flatMap(elem => new Cons(elem, new Cons(elem + 1, Empty))))
 
   println("\n================== test case classes & objects ==================")
   val cloneListOfIntegers: MyList[Int] = new Cons(1, new Cons(2, new Cons(3, Empty)))

@@ -609,3 +609,21 @@ trait Function1[-A, +B] {
 Function2[Int, String, Int]
 (Int, String) => Int
 ```
+
+<br><br><br>
+
+## 3.2 Anonymous Functions
+1. Instead of passing anonymous FunctionX instances every time
+    - cumbersome
+    - still object-oriented
+```scala
+(x, y) => x + y // lambda
+
+(name: String, age: Int) => name + " is " + age + " year old"
+```
+![imgs](./imgs/Xnip2024-06-22_06-19-46.jpg)
+
+2. Further sugar
+```scala
+val add: (Int, Int) => Int = _ + _
+```

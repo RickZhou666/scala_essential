@@ -70,6 +70,7 @@ object Generics extends App {
   // only allows your type to certain types either sub-class or super-class
 
   // (1) upper bound
+  // A is subclass of Animal
   class Cage[A <: Animal](animal: A) // class Cage only accept subtypes of Animal
   val cage = new Cage(new Dog)
 
