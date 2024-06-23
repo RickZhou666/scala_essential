@@ -287,4 +287,13 @@ object ListTest extends App {
   println("\n================== HOFs fold ==================")
   println(listOfIntegers.fold(0)(_ + _))
 
+
+  println("\n================== for-comprehensions ==================")
+  val combinations = for {
+    num <- listOfIntegers
+    string <- listOfStrings
+  } yield num + "-" + string
+
+  print(combinations)
+
 }

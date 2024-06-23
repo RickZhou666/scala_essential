@@ -645,3 +645,38 @@ def nTimesBetter(f: Int => Int, n: Int): Int => Int = ...
 def curriedFormatter(a: Int, b: Int)(c: String): String
                                     // param list 2
 ```
+
+<br><br><br>
+
+## 3.4 map, flatMap, filter and for-comprehensions
+```scala
+  println("\n======================== map ========================")
+  // map
+  println(list.map(_ + 1))
+  println(list.map(_ + " is a number"))
+
+
+  println("\n======================== filter ========================")
+  // filter
+  // based on predicate function to filter element
+  println(list.filter(_ % 2 == 0))
+
+  println("\n======================== flat map ========================")
+  val toPair = (x: Int) => List(x, x + 1)
+  println(list.flatMap(toPair))
+
+
+  println("\n======================== for-comprehensions - 1 ========================")
+  val forCombinations = for {
+    n <- numbers if n % 2 == 0
+    c <- chars
+    color <- colors
+  } yield s"$c$n-$color"
+  println(forCombinations)
+
+  println("\n======================== for-comprehensions - 2 ========================")
+  for {
+    n <- numbers
+  } println(n)
+```
+
