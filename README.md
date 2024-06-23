@@ -623,6 +623,7 @@ Function2[Int, String, Int]
 ```
 ![imgs](./imgs/Xnip2024-06-22_06-19-46.jpg)
 
+
 2. Further sugar
 ```scala
 val add: (Int, Int) => Int = _ + _
@@ -680,3 +681,40 @@ def curriedFormatter(a: Int, b: Int)(c: String): String
   } println(n)
 ```
 
+<br><br><br>
+
+## 3.5 A collections  overview
+1. Scala offers both mutable and immutable collections
+    - mutable collections can be updated in place
+    - immutable collections `never` change
+
+```scala
+# we're using the immutable collections by default
+package object scala {
+    type List[+A] = immutable.List[A]
+}
+
+object Predef {
+    type Map[A, +B] = imuutable.Map[A, B]
+    type Set[A]     = imuutable.Set[A]
+}
+
+```
+
+2. Immutable collections
+    - immutable collections are found in `Scala.collections.immutable` package
+        - `Traversable`
+    - ![imgs](./imgs/Xnip2024-06-23_15-41-29.jpg)
+
+3. Mutable collections
+    - mutable collections are found in `Scala.collections.mutable` package
+    - ![imgs](./imgs/Xnip2024-06-23_15-42-30.jpg)
+
+4. `Traversable`
+    - Base trait for all colelctions. Offers a great variety of methods
+        - maps: map, flatMap, collect
+        - conversion: toArray, toList, toSeq, toIndexedSeq, toSet, toMap
+        - size info: isEmpty, nonEmpty, size, hasDefiniteSize
+        - tests: exists, forall, find, filter, filterNot, count
+        - folds: foldLeft, foldRight, reduceLeft, reduceRight
+        - retrieval: head, headOption, last, lastOption
