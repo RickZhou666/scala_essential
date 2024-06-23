@@ -627,3 +627,21 @@ Function2[Int, String, Int]
 ```scala
 val add: (Int, Int) => Int = _ + _
 ```
+
+<br><br><br>
+
+## 3.3 Higher-Order-Functions and Curries
+1. Functional programming: working with functions
+    - pass functions as parameters
+    - return functions as results
+    - => Higher Order Functions (HOFs)
+```scala
+def nTimesBetter(f: Int => Int, n: Int): Int => Int = ...
+```
+
+2. Currying = functions with multiple paramter lists
+```scala
+                    // param list 1
+def curriedFormatter(a: Int, b: Int)(c: String): String
+                                    // param list 2
+```

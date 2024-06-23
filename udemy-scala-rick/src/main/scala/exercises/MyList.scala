@@ -1,6 +1,8 @@
 package com.rick.scala
 package exercises
 
+import lectures.part2oop.Generics.MyList
+
 /**
  * @Author: Rick
  * @Date: 2024/6/15 23:00
@@ -40,6 +42,29 @@ abstract class MyList[+A] { // covariant +A, invariant A, contravariant -A
   // Concatenation
   // B super-type of A, return type is B
   def ++[B >: A](list: MyList[B]): MyList[B]
+
+  // HOFs
+  def foreach(f: A => Unit): Unit
+  /*
+      receive a compare function
+   */
+  def sort(compare: (A, A) => Int): MyList[A]
+  /*
+      MyList[A] will receive some MyList[B] and a zip function convert (A, B) => C, return MyList[C]
+      add Type Parameters [B, C]
+      will throw exception if different length
+   */
+  def zipWith[B, C](list: MyList[B], zip: (A, B) => C): MyList[C]
+
+  /*
+      TypeParameter as B
+      take param B
+      and operator with params (B, A) return B,
+      then return B
+
+   */
+  def fold[B](start: B)(operator: (B, A) => B): B
+
 }
 
 // Empty list should be anything
@@ -65,6 +90,17 @@ case object Empty extends MyList[Nothing] {
 
 
   override def ++[B >: Nothing](list: MyList[B]): MyList[B] = list // just return that list
+
+  // HOFs
+  override def foreach(f: Nothing => Unit): Unit = ()
+
+  override def sort(compare: (Nothing, Nothing) => Int) = Empty
+
+  override def zipWith[B, C](list: MyList[B], zip: (Nothing, B) => C): MyList[C] =
+    if (!list.isEmpty) throw new RuntimeException("Lists do not have the same length")
+    else Empty
+
+  override def fold[B](start: B)(operator: (B, Nothing) => B): B = start // as list is empty, return 'start' value
 }
 
 case class Cons[+A](h: A, t: MyList[A]) extends MyList[A] {
@@ -129,6 +165,42 @@ case class Cons[+A](h: A, t: MyList[A]) extends MyList[A] {
   override def flatMap[B](transformer: A => MyList[B]): MyList[B] =
     transformer(h) ++ t.flatMap(transformer)
 
+  // HOFs
+  override def foreach(f: A => Unit): Unit = {
+    f(h)
+    t.foreach(f)
+  }
+
+  override def sort(compare: (A, A) => Int): MyList[A] = {
+    def insert(x: A, sortedList: MyList[A]): MyList[A] = {
+      if (sortedList.isEmpty()) new Cons(x, Empty)
+      else if (compare(x, sortedList.head)<= 0) new Cons(x, sortedList)
+      else  new Cons(sortedList.head, insert(x, sortedList.tail))
+    }
+
+    val sortedTail = t.sort(compare)
+    insert(h, sortedTail)
+  }
+
+  override def zipWith[B, C](list: MyList[B], zip: (A, B) => C): MyList[C] =
+    if (list.isEmpty()) throw new RuntimeException("Lists do not have the same length")
+    else new Cons(zip(h, list.head), t.zipWith(list.tail, zip))
+
+  /*
+    [1,2,3].fold(0)(+) =
+    = [2,3].fold(1)(+) =
+    = [3].fold(3)(+) =
+    = [].fold(6)(+) =
+    = 6
+
+
+   */
+  override def fold[B](start: B)(operator: (B, A) => B): B = {
+    // val newStart = operator(start, h)
+    // t.fold(newStart)(operator)
+    // equivalent to below
+    t.fold(operator(start, h))(operator)
+  }
 }
 
 
@@ -198,4 +270,21 @@ object ListTest extends App {
   val cloneListOfIntegers: MyList[Int] = new Cons(1, new Cons(2, new Cons(3, Empty)))
   println(s"compare clone of list integers ${listOfIntegers == cloneListOfIntegers}")
   // if you don't use 'case' then you need define a recursive comparison method
+
+
+  println("\n================== HOFs foreach ==================")
+  // listOfIntegers.foreach(x => println(x))
+  listOfIntegers.foreach(println)
+
+  println("\n================== HOFs sort ==================")
+  println(listOfIntegers.sort((x, y) => y - x))
+
+  println("\n================== HOFs zip ==================")
+  // missing parameter type for expanded function ((x$1: Int, x$2: <error>) => <x$1: error>.<$plus: error>("-").<$plus: error>(x$2))
+  //   println(anotherListOfIntegers.zipWith(listOfStrings, _ + "-" + _))
+  println(anotherListOfIntegers.zipWith[String, String](listOfStrings, _ + "-" + _))
+
+  println("\n================== HOFs fold ==================")
+  println(listOfIntegers.fold(0)(_ + _))
+
 }
