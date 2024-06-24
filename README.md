@@ -718,3 +718,71 @@ object Predef {
         - tests: exists, forall, find, filter, filterNot, count
         - folds: foldLeft, foldRight, reduceLeft, reduceRight
         - retrieval: head, headOption, last, lastOption
+
+<br><br><br>
+
+## 3.6 Sequences: List, Array, Vector
+1. Sequences
+    - A very general interface for data structures that
+        - have well defined order
+        - can be indexed
+    - Supports various operations
+        - apply, iterator, length, reverse, for indexing and iterating
+        - concatenation, appending, prepending
+        - a lot of others: grouping, sorting, zipping, searching, slicing
+
+
+```scala
+trait Seq[+A] {
+    def head: A
+    def tail: Seq[A]
+}
+```
+
+<br><br>
+
+2. List
+    - a linearSeq immutable linked list
+        - head,tail, isEmpty methods are fast: O(1)
+        - most operations are O(n): length, reverse
+    - Sealed - has two subtypes:
+        - object Nil(empty) 
+        - class ::
+
+
+```scala
+sealed abstract class List[+A]
+case object Nil extends List[Nothing]
+case class ::[A](val hd: A, val tl: List[A]) extends List[A]
+```
+
+<br><br>
+
+3. Array
+    - The equivalent of simple Java arrays
+        - can be manually constructed with predefined lengths
+        - can be mutated (updated in place)
+        - are interoperable with Java's T[] arrays
+        - indexing is fast
+    - where's the seq?!*
+```scala
+final class Array[T] 
+        extends java.io.Serializable 
+        with java.lang.Cloneable
+```
+
+<br><br>
+
+4. Vector
+    - The default implementation for immutable sequences
+        - effectively constant indexed read and write: O(log<sub>32</sub>(n)) 
+        - fast element addition: append/ prepend
+        - implemented as a fixed-branched trie (branch factor 32)
+        - good performance for large size
+```scala
+final class Vector[+A]
+
+val noElements = Vector.empty
+val numbers = noElements :+ 1 :+ 2 :+ 3     // Vector (1, 2 ,3)
+val modified = numbers updated (0, 7)       // Vector (7, 2 ,3)
+```
