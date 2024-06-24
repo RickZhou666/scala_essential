@@ -786,3 +786,30 @@ val noElements = Vector.empty
 val numbers = noElements :+ 1 :+ 2 :+ 3     // Vector (1, 2 ,3)
 val modified = numbers updated (0, 7)       // Vector (7, 2 ,3)
 ```
+
+<br><br><br>
+
+## 3.7 Tuples and Maps
+1. Tuples
+```scala
+val tuple = (42, "RockTheJVM")
+tuple._1                // 42                       <-- retrieve elements using _n
+tuple.copy(_1 = 0)      // (0, RockTheJVM)          <-- create new tuples
+tuple.toString          // "(42, RockTheJVM)"       <-- pretty print
+tuple.swap              // ("RockTheJVM", 42)       <-- swap the elements
+```
+
+2. Maps
+```scala
+val phonebook = Map("Jim" -> 555, "Daniel" -> 789)
+phonebook.contains("Jim")
+val anotherbook = phonebook + ("Mary" -> 678)
+```
+
+3. Functionals
+    - filterKeys, mapValues
+    - map, filter, flatMap (on pairings!)
+
+4. To/from other collections
+    - .toList, .toMap
+    - groupBy
